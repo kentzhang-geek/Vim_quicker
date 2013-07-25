@@ -1,11 +1,24 @@
-"this plugin promote one function :
+" configure your key map this:
+" this plugin promote one function :
 	"type Ctrl + J in insert mode 
-	"input your C comment
-	
+	"input your C comment	
 	"then print comment in current cursor
-	
+inoremap <expr> <C-J> MyComment()
+inoremap <expr> <C-K> AutoCommandEntry()
 
-" 一键添加注释
+
+iabbrev teh the
+iabbrev other other
+iabbrev wnat wnat
+
+
+func AutoCommandEntry()
+	let command_str = inputdialog("Command:", "")
+	if command_str != ""
+		return Select(command_str)
+	endif
+	return ""
+endfunc
 
 func MyComment()
 	let m_comment = inputdialog("Comment:", "")
@@ -14,4 +27,7 @@ func MyComment()
 	endif
 	return ""
 endfunc
-inoremap <expr> <C-J> MyComment()
+
+func Select(cmd_str)
+	return printf("%s\n",a:cmd_str)
+endfunc
