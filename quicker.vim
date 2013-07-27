@@ -21,24 +21,25 @@ func MyComment()
 	return ""
 endfunc
 
-" get a word from linebuf
-"func GetWord()
-	"let line_buf=getline(line("."))
-	"let cur_pos=getpos(".")
-	"let col_num=cur_pos[2]
-	"while col_num > 1
-		"if 
-"endfunc
-
 " quick world high light
+let g:word_highlight={}
 func MyHighLight()
-	"let word_need=
-	"if 
+	let word_need=expand("<cword>")
+	if strlen(word_need)==0
+		return ""
+	endif
+	if get(g:word_highlight, word_need) == 0
 		"let m = matchadd("DiffText", word_need)
-		"return ""
-	"endif
-		"call matchdelete(m)
-	"return ""
+		execute "syntax keyword DiffText " . word_need
+		let g:word_highlight[word_need] = 1
+		return ""
+	endif
+	let m = g:word_highlight[word_need]
+	echo m
+	execute "syntax keyword concealds " . word_need
+	"call matchdelete(m)
+	call remove(g:word_highlight, word_need)
+	return ""
 endfunc
 
 " quicker command deal
