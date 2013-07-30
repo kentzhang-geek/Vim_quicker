@@ -9,12 +9,12 @@ colorscheme desert
 syntax on
 
 " 设置折叠方式为缩进折叠
-set foldmethod=indent
+" set foldmethod=indent
 " 设置折叠方式为标记折叠
 " set foldmethod=marker
 " 设置折叠方式为表达式折叠
-" set foldmethod=expr
-" set foldexpr=<Tab>
+set foldmethod=expr
+set foldexpr=getline(v:lnum)[0]==\"\\t\"
 
 " 设置自动折叠
 set foldclose=all

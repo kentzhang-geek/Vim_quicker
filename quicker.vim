@@ -10,6 +10,7 @@ inoremap <expr> <C-L> MyHighLight()
 " quicker command entry
 func AutoCommandEntry()
 	call Select(getline(line(".")), line("."))
+	return
 endfunc
 
 " quick C comment
