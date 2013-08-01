@@ -52,6 +52,7 @@ func Select(cmd_str, line_num)
 	endif
 	if a:cmd_str == "config"
 		call MyConfig()
+		call setline(a:line_num, "")
 	endif
 	return
 endfunc
@@ -77,5 +78,29 @@ func MyFuncHead(line_num)
 	if getreg('i')==0
 		call MyConfig()
 	endif
+
+	let funcname=inputdialog("What's your function name?", "")
+	if funcname == ""
+		return
+	endif
+
+	let outparam=inputdialog("What's your return type?", "")
+	if outparam == ""
+		return
+	endif
+
+	let inputparam = inputdialog("What's your intput params?", "")
+
+	call setline(a:line_num,		"\/*********************************************************")
+	call append(a:line_num,			printf("*\tFunc Name   : %s", funcname))
+	call append(a:line_num + 1,		printf("*\tProject     : %s", getreg('p')))
+	call append(a:line_num + 2,		printf("*\tAuthor      : %s", getreg('n')))
+	call append(a:line_num + 3,		printf("*\tData        : %s", strftime("%c")))
+	call append(a:line_num + 4,			   "*\tDescription : ")
+	call append(a:line_num + 5,			   "*\t              ")
+	call append(a:line_num + 6,		"**********************************************************/")
+	call append(a:line_num + 7,		printf("%s %s(%s)", outparam, funcname, inputparam))
+	call append(a:line_num + 8,		"{")
+	call append(a:line_num + 9,		"}")
 	return
 endfunc
