@@ -45,19 +45,37 @@ func MyHighLight()
 	return ""
 endfunc
 
+" Find command string
+func Judge_word(cmd_str, promote_str)
+	if matchend(a:cmd_str, printf("\t%s", a:promote_str)) > 0
+		return 1
+	endif
+	if a:cmd_str == a:promote_str
+		return 1
+	endif
+	return 0
+endfunc
+
 " quicker command deal
 func Select(cmd_str, line_num)
-	if a:cmd_str == "func"
-		call MyFuncHead(a:line_num)
-	endif
-	if a:cmd_str == "config"
+	if Judge_word(a:cmd_str, "config")
 		call MyConfig()
 		call setline(a:line_num, "")
 	endif
+	
+	if Judge_word(a:cmd_str, "func")
+		call MyFuncHead(a:line_num)
+	endif
+
+	if Judge_word(a:cmd_str, "file")
+		call MyFileHead(a:line_num)
+	endif
+
 	return
 endfunc
 
 func MyConfig()
+	call confirm("Notice : this plugin only apply C language")
 	let myname=inputdialog("What's your name?", "")
 	if myname==""
 		return
@@ -103,4 +121,21 @@ func MyFuncHead(line_num)
 	call append(a:line_num + 8,		"{")
 	call append(a:line_num + 9,		"}")
 	return
+endfunc
+
+func MyFileHead(line_num)
+	if getreg('i')==0
+		call MyConfig()
+	endif
+	let filename = expand("%:t")
+
+	call setline(a:line_num,		"\/*********************************************************")
+	call append(a:line_num,			printf("*\tFile Name   : %s", filename))
+	call append(a:line_num + 1,		printf("*\tProject     : %s", getreg('p')))
+	call append(a:line_num + 2,		printf("*\tAuthor      : %s", getreg('n')))
+	call append(a:line_num + 3,		printf("*\tData        : %s", strftime("%c")))
+	call append(a:line_num + 4,			   "*\tDescription : ")
+	call append(a:line_num + 5,			   "*\t              ")
+	call append(a:line_num + 6,		"**********************************************************/")
+
 endfunc
