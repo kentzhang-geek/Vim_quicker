@@ -71,6 +71,24 @@ func Select(cmd_str, line_num)
 		call MyFileHead(a:line_num)
 	endif
 
+	if Judge_word(a:cmd_str, "mds")
+		call MyModifyTag("mds", a:line_num)
+	endif
+	if Judge_word(a:cmd_str, "mde")
+		call MyModifyTag("mde", a:line_num)
+	endif
+
+	if Judge_word(a:cmd_str, "ads")
+		call MyAddTag("ads", a:line_num)
+	endif
+	if Judge_word(a:cmd_str, "ade")
+		call MyAddTag("ade", a:line_num)
+	endif
+
+	if Judge_word(a:cmd_str, "dt")
+		call MyDelTag(a:line_num)
+	endif
+
 	return
 endfunc
 
@@ -96,19 +114,15 @@ func MyFuncHead(line_num)
 	if getreg('i')==0
 		call MyConfig()
 	endif
-
 	let funcname=inputdialog("What's your function name?", "")
 	if funcname == ""
 		return
 	endif
-
 	let outparam=inputdialog("What's your return type?", "")
 	if outparam == ""
 		return
 	endif
-
 	let inputparam = inputdialog("What's your intput params?", "")
-
 	call setline(a:line_num,		"\/*********************************************************")
 	call append(a:line_num,			printf("*\tFunc Name   : %s", funcname))
 	call append(a:line_num + 1,		printf("*\tProject     : %s", getreg('p')))
@@ -128,14 +142,62 @@ func MyFileHead(line_num)
 		call MyConfig()
 	endif
 	let filename = expand("%:t")
+	call append(0,		"\/*********************************************************")
+	call append(1,			printf("*\tFile Name   : %s", filename))
+	call append(2,		printf("*\tProject     : %s", getreg('p')))
+	call append(3,		printf("*\tAuthor      : %s", getreg('n')))
+	call append(4,		printf("*\tData        : %s", strftime("%c")))
+	call append(5,			   "*\tDescription : ")
+	call append(6,			   "*\t              ")
+	call append(7,		"**********************************************************/")
+	call setline(a:line_num + 8, "")
+endfunc
 
-	call setline(a:line_num,		"\/*********************************************************")
-	call append(a:line_num,			printf("*\tFile Name   : %s", filename))
-	call append(a:line_num + 1,		printf("*\tProject     : %s", getreg('p')))
-	call append(a:line_num + 2,		printf("*\tAuthor      : %s", getreg('n')))
-	call append(a:line_num + 3,		printf("*\tData        : %s", strftime("%c")))
-	call append(a:line_num + 4,			   "*\tDescription : ")
-	call append(a:line_num + 5,			   "*\t              ")
-	call append(a:line_num + 6,		"**********************************************************/")
+func MyModifyTag(str, line_num)
+	if getreg('i')==0
+		call MyConfig()
+	endif
+	let idt = indent(a:line_num)
+	let idt = idt/4
+	let tab = ""
+	for i in range(1, idt)
+		let tab = "\t".tab
+	endfor
+	if a:str == "mds"
+		call setline(a:line_num, printf("%s/* Begin : Modify by %s for \"%s\" at %s */", tab, getreg('n'), getreg('p'), strftime("%c"), ))
+		return
+	endif
+	call setline(a:line_num, printf(    "%s/* End   : Modify by %s for \"%s\" at %s */", tab, getreg('n'), getreg('p'), strftime("%c"), ))
+	return
+endfunc
 
+func MyAddTag(str, line_num)
+	if getreg('i')==0
+		call MyConfig()
+	endif
+	let idt = indent(a:line_num)
+	let idt = idt/4
+	let tab = ""
+	for i in range(1, idt)
+		let tab = "\t".tab
+	endfor
+	if a:str == "ads"
+		call setline(a:line_num, printf("%s/* Begin : Add by %s for \"%s\" at %s */", tab, getreg('n'), getreg('p'), strftime("%c"), ))
+		return
+	endif
+	call setline(a:line_num, printf(    "%s/* End   : Add by %s for \"%s\" at %s */", tab, getreg('n'), getreg('p'), strftime("%c"), ))
+	return
+endfunc
+
+func MyDelTag(line_num)
+	if getreg('i')==0
+		call MyConfig()
+	endif
+	let idt = indent(a:line_num)
+	let idt = idt/4
+	let tab = ""
+	for i in range(1, idt)
+		let tab = "\t".tab
+	endfor
+	call setline(a:line_num, printf(    "%s/* Tag   : Delete by %s for \"%s\" at %s */", tab, getreg('n'), getreg('p'), strftime("%c"), ))
 endfunc
