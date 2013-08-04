@@ -28,3 +28,13 @@ and you have this now:
 NONE execute command(NONE)
 {
 }
+
+Now wo can execute these command:
+	config
+	file
+	func
+	mds
+	mde
+	ads
+	ade
+	dt
