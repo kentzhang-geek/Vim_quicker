@@ -119,8 +119,8 @@ func MyFuncHead(line_num)
 		return
 	endif
 	let outparam=inputdialog("What's your return type?", "")
-	if outparam == ""
-		return
+	if outparam != ""
+		let outparam = outparam." "
 	endif
 	let inputparam = inputdialog("What's your intput params?", "")
 	call setline(a:line_num,		"\/*********************************************************")
@@ -131,7 +131,7 @@ func MyFuncHead(line_num)
 	call append(a:line_num + 4,			   "*\tDescription : ")
 	call append(a:line_num + 5,			   "*\t              ")
 	call append(a:line_num + 6,		"**********************************************************/")
-	call append(a:line_num + 7,		printf("%s %s(%s)", outparam, funcname, inputparam))
+	call append(a:line_num + 7,		printf("%s%s(%s)", outparam, funcname, inputparam))
 	call append(a:line_num + 8,		"{")
 	call append(a:line_num + 9,		"}")
 	return
