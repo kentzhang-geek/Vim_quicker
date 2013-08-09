@@ -45,13 +45,13 @@ Now wo can execute these command:
 	dt
 
 Next step i will realize these commands:
-*if
-*while
-*for
-*if else
-*{ and }
-*enum (typedef)
-*struct (typedef)
-*style
-*logfile
-*symbol lookup
+*	if
+*	while
+*	for
+*	if else
+*	{ and }
+*	enum (typedef)
+*	struct (typedef)
+*	style
+*	logfile
+*	symbol lookup
