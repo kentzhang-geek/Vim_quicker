@@ -1,3 +1,8 @@
+Vim Quicker
+==========================================================
+A vim plugin for C coder
+----------------------------------------------------------
+
 /*********************************************************
 *	File Name   : README.md
 *	Project     : Vim_quicker
@@ -17,6 +22,7 @@ Use <C-K> To execute some command and insert file head or function head and so o
 		step 2 : press <C-K>
 		setp 3 : input what a function head need
 and you have this now:
+<code>
 /*********************************************************
 *	Func Name   : execute command
 *	Project     : Vim_quicker
@@ -28,6 +34,7 @@ and you have this now:
 NONE execute command(NONE)
 {
 }
+</code>
 
 Now wo can execute these command:
 	config
@@ -38,3 +45,15 @@ Now wo can execute these command:
 	ads
 	ade
 	dt
+
+Next step i will realize these commands:
+-[] if
+-[] while
+-[] for
+-[] if else
+-[] { and }
+-[] enum (typedef)
+-[] struct (typedef)
+-[] style
+-[] logfile
+-[] symbol lookup
