@@ -35,19 +35,19 @@ A vim plugin for C coder
 	}
 
 Now wo can execute these command:
-	config
-	file
-	func
-	mds
-	mde
-	ads
-	ade
-	dt
-	if
-	enum (typedef)
-	while
-	for
-	else
+*	config
+*	file
+*	func
+*	mds
+*	mde
+*	ads
+*	ade
+*	dt
+*	if
+*	enum (typedef)
+*	while
+*	for
+*	else
 
 Next step i will realize these commands:
 *	{ and }
