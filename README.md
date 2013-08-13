@@ -43,14 +43,14 @@ Now wo can execute these command:
 	ads
 	ade
 	dt
+	if
+	enum (typedef)
+	while
+	for
+	else
 
 Next step i will realize these commands:
-*	if
-*	while
-*	for
-*	if else
 *	{ and }
-*	enum (typedef)
 *	struct (typedef)
 *	style
 *	logfile
