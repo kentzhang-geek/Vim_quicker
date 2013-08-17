@@ -60,6 +60,9 @@ endfunc
 
 " quicker command deal
 func Select(cmd_str, line_num)
+	if getreg('i')==0
+		call MyConfig()
+	endif
 	if Judge_word(a:cmd_str, "config")
 		call MyConfig()
 		call setline(a:line_num, "")
@@ -128,22 +131,19 @@ func MyConfig()
 	if myname==""
 		return
 	endif
-	call setreg('n', myname)
+	call setreg("n", myname)
 
 	let myprj=inputdialog("What's your project?", "")
 	if myprj==""
 		return
 	endif
-	call setreg('p', myprj)
+	call setreg("p", myprj)
 
 	call setreg('i', 1)
 	return
 endfunc
 
 func MyFuncHead(line_num)
-	if getreg('i')==0
-		call MyConfig()
-	endif
 	let funcname=inputdialog("What's your function name?", "")
 	if funcname == ""
 		return
@@ -155,8 +155,8 @@ func MyFuncHead(line_num)
 	let inputparam = inputdialog("What's your intput params?", "")
 	call setline(a:line_num,		"\/*********************************************************")
 	call append(a:line_num,			printf("*\tFunc Name   : %s", funcname))
-	call append(a:line_num + 1,		printf("*\tProject     : %s", getreg('p')))
-	call append(a:line_num + 2,		printf("*\tAuthor      : %s", getreg('n')))
+	call append(a:line_num + 1,		printf("*\tProject     : %s", getreg("p")))
+	call append(a:line_num + 2,		printf("*\tAuthor      : %s", getreg("n")))
 	call append(a:line_num + 3,		printf("*\tData        : %s", strftime("%c")))
 	call append(a:line_num + 4,			   "*\tDescription : ")
 	call append(a:line_num + 5,			   "*\t              ")
@@ -174,8 +174,8 @@ func MyFileHead(line_num)
 	let filename = expand("%:t")
 	call append(0,		"\/*********************************************************")
 	call append(1,			printf("*\tFile Name   : %s", filename))
-	call append(2,		printf("*\tProject     : %s", getreg('p')))
-	call append(3,		printf("*\tAuthor      : %s", getreg('n')))
+	call append(2,		printf("*\tProject     : %s", getreg("p")))
+	call append(3,		printf("*\tAuthor      : %s", getreg("n")))
 	call append(4,		printf("*\tData        : %s", strftime("%c")))
 	call append(5,			   "*\tDescription : ")
 	call append(6,			   "*\t              ")
@@ -194,10 +194,10 @@ func MyModifyTag(str, line_num)
 		let tab = "\t".tab
 	endfor
 	if a:str == "mds"
-		call setline(a:line_num, printf("%s/* Begin : Modify by %s for \"%s\" at %s */", tab, getreg('n'), getreg('p'), strftime("%c"), ))
+		call setline(a:line_num, printf("%s/* Begin : Modify by %s for \"%s\" at %s */", tab, getreg("n"), getreg("p"), strftime("%c"), ))
 		return
 	endif
-	call setline(a:line_num, printf(    "%s/* End   : Modify by %s for \"%s\" at %s */", tab, getreg('n'), getreg('p'), strftime("%c"), ))
+	call setline(a:line_num, printf(    "%s/* End   : Modify by %s for \"%s\" at %s */", tab, getreg("n"), getreg("p"), strftime("%c"), ))
 	return
 endfunc
 
@@ -212,10 +212,10 @@ func MyAddTag(str, line_num)
 		let tab = "\t".tab
 	endfor
 	if a:str == "ads"
-		call setline(a:line_num, printf("%s/* Begin : Add by %s for \"%s\" at %s */", tab, getreg('n'), getreg('p'), strftime("%c"), ))
+		call setline(a:line_num, printf("%s/* Begin : Add by %s for \"%s\" at %s */", tab, getreg("n"), getreg("p"), strftime("%c"), ))
 		return
 	endif
-	call setline(a:line_num, printf(    "%s/* End   : Add by %s for \"%s\" at %s */", tab, getreg('n'), getreg('p'), strftime("%c"), ))
+	call setline(a:line_num, printf(    "%s/* End   : Add by %s for \"%s\" at %s */", tab, getreg("n"), getreg("p"), strftime("%c"), ))
 	return
 endfunc
 
@@ -229,7 +229,7 @@ func MyDelTag(line_num)
 	for i in range(1, idt)
 		let tab = "\t".tab
 	endfor
-	call setline(a:line_num, printf(    "%s/* Tag   : Delete by %s for \"%s\" at %s */", tab, getreg('n'), getreg('p'), strftime("%c"), ))
+	call setline(a:line_num, printf(    "%s/* Tag   : Delete by %s for \"%s\" at %s */", tab, getreg("n"), getreg("p"), strftime("%c"), ))
 endfunc
 
 func MyTemplete(line_num, string)
@@ -251,24 +251,24 @@ func MyTemplete(line_num, string)
 endfunc
 
 func MyEnum(line_num)
-	let proname = getreg('p')
+	let proname = getreg("p")
 	let tagname = inputdialog("Input your enum name:", "")
 	if tagname == ""
 		return ""
 	endif
-	call setline(a:line_num,	printf("typedef tag_enum_%s_%s {", getreg('p'), tagname))
+	call setline(a:line_num,	printf("typedef tag_enum_%s_%s {", getreg("p"), tagname))
 	call append(a:line_num,		printf("\t%s_INVALID = 0,", toupper(tagname)))
 	call append(a:line_num + 1,	printf("\t%s_BUTT ,", toupper(tagname)))
 	call append(a:line_num + 2, printf("} ENUM_%s;", toupper(tagname)))
 endfunc
 
 func MyStruct(line_num)
-	let proname = getreg('p')
+	let proname = getreg("p")
 	let tagname = inputdialog("Input your struct name:", "")
 	if tagname == ""
 		return ""
 	endif
-	call setline(a:line_num,	printf("typedef tag_struct_%s_%s {", getreg('p'), tagname))
+	call setline(a:line_num,	printf("typedef tag_struct_%s_%s {", getreg("p"), tagname))
 	call append(a:line_num, printf("} STRUCT_%s;", toupper(tagname)))
 endfunc
 
