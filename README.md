@@ -13,13 +13,14 @@ A vim plugin for C coder
 	**********************************************************/
 
 	/* Notice : This plugin only apply C language */
+	/* Notice : change key map */
 
-	Use <C-J> To insert comment quickly
-	Use <C-L> To Highlight some word in current file buffer
-	Use <C-K> To execute some command and insert file head or function head and so on
+	Use <M-j> To insert comment quickly
+	Use <M-l> To Highlight some word in current file buffer
+	Use <M-k> To execute some command and insert file head or function head and so on
 	Use like this:
 		step 1 : type "func" at line tail
-		step 2 : press <C-K>
+		step 2 : press <M-K>
 		setp 3 : input what a function head need
 	and you have this now:
 	/*********************************************************
@@ -48,10 +49,10 @@ Now wo can execute these command:
 *	while
 *	for
 *	else
+*	struct (typedef)
+*	{ and }
 
 Next step i will realize these commands:
-*	{ and }
-*	struct (typedef)
 *	style
 *	logfile
 *	symbol lookup

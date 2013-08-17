@@ -3,10 +3,10 @@
 "	type Ctrl + J in insert mode 
 "	input your C comment	
 "	then print comment in current cursor
-imap <C-K> <Esc>:call AutoCommandEntry()<CR>a<Right>
-inoremap <expr> <C-J> MyComment()
-inoremap <expr> <C-L> MyHighLight()
-noremap <C-L> <Esc>:call MyHighLight()<CR>
+imap <M-i> <Esc>:call AutoCommandEntry()<CR>a<Right>
+inoremap <expr> <M-j> MyComment()
+inoremap <expr> <M-l> MyHighLight()
+noremap <M-l> <Esc>:call MyHighLight()<CR>
 
 " quicker command entry
 func AutoCommandEntry()
@@ -107,6 +107,15 @@ func Select(cmd_str, line_num)
 	if Judge_word(a:cmd_str, "enum")
 		call MyEnum(a:line_num)
 	endif
+
+	if Judge_word(a:cmd_str, "struct") || Judge_word(a:cmd_str, "str")
+		call MyStruct(a:line_num)
+	endif
+
+	if Judge_word(a:cmd_str, "{")
+		call MyPair(a:line_num)
+	endif
+
 	return
 endfunc
 
@@ -244,4 +253,27 @@ func MyEnum(line_num)
 	call append(a:line_num,		printf("\t%s_INVALID = 0,", toupper(tagname)))
 	call append(a:line_num + 1,	printf("\t%s_BUTT ,", toupper(tagname)))
 	call append(a:line_num + 2, printf("} ENUM_%s;", toupper(tagname)))
+endfunc
+
+func MyStruct(line_num)
+	let proname = getreg('p')
+	let tagname = inputdialog("Input your struct name:", "")
+	if tagname == ""
+		return ""
+	endif
+	call setline(a:line_num,	printf("typedef tag_struct_%s_%s {", getreg('p'), tagname))
+	call append(a:line_num, printf("} STRUCT_%s;", toupper(tagname)))
+endfunc
+
+func MyPair(line_num)
+	let indent = indent(line("."))
+	let idt = ""
+	let i = indent/4
+	for i in range(1, i)
+		let idt = "\t".idt
+	endfor
+	call setline(a:line_num,			printf(	"%s{",	idt))
+	call append(a:line_num,		printf(	"%s\t",	idt))
+	call append(a:line_num + 1,		printf(	"%s}",	idt))
+	call cursor(a:line_num + 1, i + 1)
 endfunc
