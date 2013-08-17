@@ -49,7 +49,10 @@ func Judge_word(cmd_str, promote_str)
 	if matchend(a:cmd_str, printf("\t%s", a:promote_str)) > 0
 		return 1
 	endif
-	if a:cmd_str == a:promote_str
+	if matchend(a:cmd_str, printf(" %s", a:promote_str)) > 0
+		return 1
+	endif
+	if strpart(a:cmd_str, 0, strlen(a:promote_str)) == a:promote_str
 		return 1
 	endif
 	return 0
@@ -236,6 +239,10 @@ func MyTemplete(line_num, string)
 	for i in range(1, i)
 		let idt = "\t".idt
 	endfor
+	if 0 < match(getline(a:line_num), "(")
+		call cursor(a:line_num + 2, i + 1)
+		return 
+	endif
 	call setline(a:line_num,		printf(	"%s%s ()", idt, a:string))
 	call append(a:line_num,			printf(	"%s{",	idt))
 	call append(a:line_num + 1,		printf(	"%s\t",	idt))
