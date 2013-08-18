@@ -8,6 +8,12 @@ inoremap <expr> <M-j> MyComment()
 inoremap <expr> <M-l> MyHighLight()
 noremap <M-l> <Esc>:call MyHighLight()<CR>
 
+imap <C-K> <Esc>:call AutoCommandEntry()<CR>a<Right>
+inoremap <expr> <C-J> MyComment()
+inoremap <expr> <C-L> MyHighLight()
+noremap <C-L> <Esc>:call MyHighLight()<CR>
+
+
 " quicker command entry
 func AutoCommandEntry()
 	call Select(getline(line(".")), line("."))
@@ -239,11 +245,15 @@ func MyTemplete(line_num, string)
 	for i in range(1, i)
 		let idt = "\t".idt
 	endfor
-	if 0 < match(getline(a:line_num), "(")
+	if 0 <= match(getline(a:line_num + 1), "{")
 		call cursor(a:line_num + 2, i + 1)
 		return 
 	endif
-	call setline(a:line_num,		printf(	"%s%s ()", idt, a:string))
+	if a:string != "else"
+		call setline(a:line_num,		printf(	"%s%s ()", idt, a:string))
+	else
+		call setline(a:line_num,		printf(	"%s%s", idt, a:string))
+	endif
 	call append(a:line_num,			printf(	"%s{",	idt))
 	call append(a:line_num + 1,		printf(	"%s\t",	idt))
 	call append(a:line_num + 2,		printf(	"%s}",	idt))
