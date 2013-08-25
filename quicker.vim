@@ -128,6 +128,10 @@ func Select(cmd_str, line_num)
 		call MyPair(a:line_num)
 	endif
 
+	if Judge_word(a:cmd_str, "TEST(") || Judge_word(a:cmd_str, "TEST_F(")
+		call MyTest(a:line_num)
+	endif
+
 	return
 endfunc
 
@@ -145,7 +149,12 @@ func MyConfig()
 	endif
 	call setreg("p", myprj)
 
-	call setreg('i', 1)
+	let filetype = confirm("Witch type this file is?", "&C-Src\n&Gtest\n&Other")
+	if filetype == 0
+		let filetype = 3
+	endif
+	call setreg("t", filetype)
+	call setreg("i", 1)
 	return
 endfunc
 
@@ -293,4 +302,30 @@ func MyPair(line_num)
 	call append(a:line_num,		printf(	"%s\t",	idt))
 	call append(a:line_num + 1,		printf(	"%s}",	idt))
 	call cursor(a:line_num + 1, i + 1)
+endfunc
+
+func MyTest(line_num)
+	if getreg("t") != 2
+		return
+	endif
+	let line_str = getline(a:line_num)
+	let left_bracket = stridx(line_str, "(")
+	let right_bracket = stridx(line_str, ")")
+	let comma = stridx(line_str, ",")
+	if (0 == stridx(line_str, "TEST")) && (left_bracket < comma) && (comma < right_bracket)
+		let testcase = strpart(line_str, left_bracket + 1, comma - left_bracket - 1)
+		let testnum = strpart(line_str, comma + 1, right_bracket - comma - 1)
+		let space = stridx(testnum, " ")
+		if space >= 0
+			let testnum = strpart(testnum, space + 1)
+		endif
+		call append(a:line_num - 1,		"\/*********************************************************")
+		call append(a:line_num ,			printf("*\tTest ID     : %s", printf("%s_%s", testcase, testnum)))
+		call append(a:line_num + 1,		printf("*\tProject     : %s", getreg("p")))
+		call append(a:line_num + 2,		printf("*\tAuthor      : %s", getreg("n")))
+		call append(a:line_num + 3,		printf("*\tData        : %s", strftime("%c")))
+		call append(a:line_num + 4,			   "*\tDescription : ")
+		call append(a:line_num + 5,			   "*\t              ")
+		call append(a:line_num + 6,		"**********************************************************/")
+	endif		
 endfunc

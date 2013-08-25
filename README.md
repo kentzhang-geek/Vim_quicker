@@ -51,6 +51,7 @@ Now wo can execute these command:
 *	else
 *	struct (typedef)
 *	{ and }
+*	add applye to gtest framework: TEST(x, y) or TEST_F(x, y)
 
 Next step i will realize these commands:
 *	style
