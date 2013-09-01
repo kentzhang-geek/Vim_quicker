@@ -132,6 +132,10 @@ func Select(cmd_str, line_num)
 		call MyTest(a:line_num)
 	endif
 
+	if Judge_word(a:cmd_str, "cpp")
+		call MyCpp(a:line_num)
+	endif
+
 	return
 endfunc
 
@@ -328,4 +332,16 @@ func MyTest(line_num)
 		call append(a:line_num + 5,			   "*\t              ")
 		call append(a:line_num + 6,		"**********************************************************/")
 	endif		
+endfunc
+
+func MyCpp(line_num)
+	call setline(a:line_num,		"#ifdef __cplusplus") 
+	call append(a:line_num,			"extern \"C\" {")
+	call append(a:line_num + 1,		"#endif")
+	call append(a:line_num + 2,		"")
+	call append(a:line_num + 3,		"#ifdef __cplusplus") 
+	call append(a:line_num + 4,		"}")
+	call append(a:line_num + 5,		"#endif")
+	call cursor(a:line_num + 2, 1)
+	return
 endfunc

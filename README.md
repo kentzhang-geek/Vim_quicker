@@ -52,6 +52,7 @@ Now wo can execute these command:
 *	struct (typedef)
 *	{ and }
 *	add applye to gtest framework: TEST(x, y) or TEST_F(x, y)
+*	now apply fill cpp #ifdef types
 
 Next step i will realize these commands:
 *	style
