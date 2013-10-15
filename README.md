@@ -14,10 +14,16 @@ A vim plugin for C coder
 
 	/* Notice : This plugin only apply C language */
 	/* Notice : change key map */
-
-	Use <M-j> To insert comment quickly
-	Use <M-l> To Highlight some word in current file buffer
-	Use <M-k> To execute some command and insert file head or function head and so on
+	<M-x> means press x and Alt at the same time
+	<C-x> means press x and Ctrl at the same time
+	if your use vim with graphic support, then
+		Use <M-j> To insert comment quickly
+		Use <M-l> To Highlight some word in current file buffer
+		Use <M-i> To execute some command and insert file head or function head and so on
+	if not,your need use Ctrl quick keys:
+		Use <C-j> To insert comment quickly
+		Use <C-l> To Highlight some word in current file buffer
+		Use <C-k> To execute some command and insert file head or function head and so on
 	Use like this:
 		step 1 : type "func" at line tail
 		step 2 : press <M-K>
