@@ -136,6 +136,10 @@ func Select(cmd_str, line_num)
 		call MyCpp(a:line_num)
 	endif
 
+	if Judge_word(a:cmd_str, "class")
+		call MyClass(a:line_num)
+	endif
+
 	return
 endfunc
 
@@ -345,3 +349,29 @@ func MyCpp(line_num)
 	call cursor(a:line_num + 2, 1)
 	return
 endfunc
+
+func MyClass(line_num)
+	let classname=inputdialog("What's name of this class?", "")
+	if classname == ""
+		return
+	endif
+	call setline(a:line_num,		"\/*********************************************************")
+	call append(a:line_num,			printf("*\tClass Name  : %s", classname))
+	call append(a:line_num + 1,		printf("*\tProject     : %s", getreg("p")))
+	call append(a:line_num + 2,		printf("*\tAuthor      : %s", getreg("n")))
+	call append(a:line_num + 3,		printf("*\tData        : %s", strftime("%c")))
+	call append(a:line_num + 4,			   "*\tDescription : ")
+	call append(a:line_num + 5,			   "*\t              ")
+	call append(a:line_num + 6,		"**********************************************************/")
+	call append(a:line_num + 7,		printf("class %s {", classname))
+	call append(a:line_num + 8,		"\tprotected:")
+	call append(a:line_num + 9,		"\t\t")
+	call append(a:line_num + 10,	"\tprivate:")
+	call append(a:line_num + 11,	"\t\t")
+	call append(a:line_num + 12,	"\tpublic:")
+	call append(a:line_num + 13,	"\t\t")
+	call append(a:line_num + 14,	"};")
+	call cursor(a:line_num + 14, 8)
+	return
+endfunc
+

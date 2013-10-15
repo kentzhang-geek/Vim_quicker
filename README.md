@@ -53,6 +53,7 @@ Now wo can execute these command:
 *	{ and }
 *	add applye to gtest framework: TEST(x, y) or TEST_F(x, y)
 *	now apply fill cpp #ifdef types
+*	add support to c plus plus languane "class" key word
 
 Next step i will realize these commands:
 *	style
