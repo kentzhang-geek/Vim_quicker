@@ -120,7 +120,7 @@ func Select(cmd_str, line_num)
 		call MyEnum(a:line_num)
 	endif
 
-	if Judge_word(a:cmd_str, "struct") || Judge_word(a:cmd_str, "str")
+	if Judge_word(a:cmd_str, "struct")
 		call MyStruct(a:line_num)
 	endif
 
