@@ -295,8 +295,10 @@ func MyStruct(line_num)
 	if tagname == ""
 		return ""
 	endif
-	call setline(a:line_num,	printf("typedef tag_struct_%s_%s {", getreg("p"), tagname))
-	call append(a:line_num, printf("} STRUCT_%s;", toupper(tagname)))
+	call setline(a:line_num,	printf("typedef struct tag_struct_%s_%s {", getreg("p"), tagname))
+	call append(a:line_num,		"\t")
+	call append(a:line_num + 1, printf("} STRUCT_%s;", toupper(tagname)))
+	call cursor(a:line_num + 1, 4)
 endfunc
 
 func MyPair(line_num)

@@ -18,7 +18,7 @@ set foldmethod=expr
 set foldexpr=getline(v:lnum)[0]==\"\\t\"
 
 " 设置自动折叠
-set foldclose=all
+" set foldclose=all
 
 "设置Leader键
 let mapleader = ","
@@ -63,7 +63,7 @@ filetype plugin indent on     " required!
 
 " My Bundles here:
 "
-Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/YouCompleteMe'
 
 "vim-arudino
 Bundle 'git://github.com/tclem/vim-arduino.git'
