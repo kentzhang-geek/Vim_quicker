@@ -140,6 +140,10 @@ func Select(cmd_str, line_num)
 		call MyClass(a:line_num)
 	endif
 
+	if Judge_word(a:cmd_str, "debug")
+		call MyDebug(a:line_num)
+	endif
+
 	return
 endfunc
 
@@ -338,6 +342,14 @@ func MyTest(line_num)
 		call append(a:line_num + 5,			   "*\t              ")
 		call append(a:line_num + 6,		"**********************************************************/")
 	endif		
+endfunc
+
+func MyDebug(line_num)
+	call setline(a:line_num,		"#ifdef __DEBUG__") 
+	call append(a:line_num,		"\t")
+	call append(a:line_num + 1,		"#endif")
+	call cursor(a:line_num + 1, 4)
+	return
 endfunc
 
 func MyCpp(line_num)
