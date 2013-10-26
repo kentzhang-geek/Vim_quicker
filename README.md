@@ -26,7 +26,7 @@ A vim plugin for C coder
 		Use <C-k> To execute some command and insert file head or function head and so on
 	Use like this:
 		step 1 : type "func" at line tail
-		step 2 : press <M-K>
+		step 2 : press <M-i> (or <C-k>)
 		setp 3 : input what a function head need
 	and you have this now:
 	/*********************************************************
