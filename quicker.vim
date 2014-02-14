@@ -144,6 +144,10 @@ func Select(cmd_str, line_num)
 		call MyDebug(a:line_num)
 	endif
 
+	if Judge_word(a:cmd_str, "hi") || Judge_word(a:cmd_str, "history")
+		call MyHi(a:line_num)
+	endif
+
 	return
 endfunc
 
@@ -187,10 +191,14 @@ func MyFuncHead(line_num)
 	call append(a:line_num + 3,		printf("*\tData        : %s", strftime("%c")))
 	call append(a:line_num + 4,			   "*\tDescription : ")
 	call append(a:line_num + 5,			   "*\t              ")
-	call append(a:line_num + 6,		"**********************************************************/")
-	call append(a:line_num + 7,		printf("%s%s(%s)", outparam, funcname, inputparam))
-	call append(a:line_num + 8,		"{")
-	call append(a:line_num + 9,		"}")
+	call append(a:line_num + 6,			   "*\tHistory     : ")
+	call append(a:line_num + 7,		printf("*\t\t%s", strftime("%c")))
+	call append(a:line_num + 8,			   "*\t\t\tCreate.")
+	call append(a:line_num + 9,		"**********************************************************/")
+	call append(a:line_num + 10,		printf("%s%s(%s)", outparam, funcname, inputparam))
+	call append(a:line_num + 11,		"{")
+	call append(a:line_num + 12,		"}")
+	call cursor(a:line_num + 5, strlen("*\tDescription : "))
 	return
 endfunc
 
@@ -200,14 +208,17 @@ func MyFileHead(line_num)
 	endif
 	let filename = expand("%:t")
 	call append(0,		"\/*********************************************************")
-	call append(1,			printf("*\tFile Name   : %s", filename))
+	call append(1,		printf("*\tFile Name   : %s", filename))
 	call append(2,		printf("*\tProject     : %s", getreg("p")))
 	call append(3,		printf("*\tAuthor      : %s", getreg("n")))
 	call append(4,		printf("*\tData        : %s", strftime("%c")))
 	call append(5,			   "*\tDescription : ")
 	call append(6,			   "*\t              ")
-	call append(7,		"**********************************************************/")
-	call setline(a:line_num + 8, "")
+	call append(7,			   "*\tHistory     : ")
+	call append(8,		printf("*\t\t%s", strftime("%c")))
+	call append(9,			   "*\t\t\tCreate.")
+	call append(10,		"**********************************************************/")
+	call setline(a:line_num + 11, "")
 endfunc
 
 func MyModifyTag(str, line_num)
@@ -340,7 +351,10 @@ func MyTest(line_num)
 		call append(a:line_num + 3,		printf("*\tData        : %s", strftime("%c")))
 		call append(a:line_num + 4,			   "*\tDescription : ")
 		call append(a:line_num + 5,			   "*\t              ")
-		call append(a:line_num + 6,		"**********************************************************/")
+		call append(a:line_num + 6,			   "*\tHistory     : ")
+		call append(a:line_num + 7,		printf("*\t\t%s", strftime("%c")))
+		call append(a:line_num + 8,			   "*\t\t\tCreate.")
+		call append(a:line_num + 9,		"**********************************************************/")
 	endif		
 endfunc
 
@@ -376,16 +390,40 @@ func MyClass(line_num)
 	call append(a:line_num + 3,		printf("*\tData        : %s", strftime("%c")))
 	call append(a:line_num + 4,			   "*\tDescription : ")
 	call append(a:line_num + 5,			   "*\t              ")
-	call append(a:line_num + 6,		"**********************************************************/")
-	call append(a:line_num + 7,		printf("class %s {", classname))
-	call append(a:line_num + 8,		"\tprotected:")
-	call append(a:line_num + 9,		"\t\t")
-	call append(a:line_num + 10,	"\tprivate:")
-	call append(a:line_num + 11,	"\t\t")
-	call append(a:line_num + 12,	"\tpublic:")
-	call append(a:line_num + 13,	"\t\t")
-	call append(a:line_num + 14,	"};")
-	call cursor(a:line_num + 14, 8)
+	call append(a:line_num + 6,			   "*\tHistory     : ")
+	call append(a:line_num + 7,		printf("*\t\t%s", strftime("%c")))
+	call append(a:line_num + 8,			   "*\t\t\tCreate.")
+	call append(a:line_num + 9,		"**********************************************************/")
+	call append(a:line_num + 10,		printf("class %s {", classname))
+	call append(a:line_num + 11,		"\tprotected:")
+	call append(a:line_num + 12,		"\t\t")
+	call append(a:line_num + 13,	"\tprivate:")
+	call append(a:line_num + 14,	"\t\t")
+	call append(a:line_num + 15,	"\tpublic:")
+	call append(a:line_num + 16,	"\t\t")
+	call append(a:line_num + 17,	"};")
+	call cursor(a:line_num + 18, 8)
 	return
 endfunc
 
+func MyHi(line_num)
+	let s:linum=a:line_num
+	let indent = indent(line("."))
+	let idt = ""
+	let i = indent/4
+	for i in range(1, i)
+		let idt = "\t".idt
+	endfor
+	call setline(s:linum, printf("%s", idt))
+	while s:linum > 0
+		let s:linum -= 1
+		if getline(s:linum) == "**********************************************************/"
+			let process=inputdialog("What have you done?")
+			call append(s:linum - 1, printf("*\t\t%s", strftime("%c")))
+			call append(s:linum    , printf("*\t\t\t%s", process))
+			return
+		endif
+	endwhile
+	call confirm("No Headers Found, please insert headers first.")
+	return
+endfunc

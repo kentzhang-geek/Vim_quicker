@@ -61,6 +61,7 @@ Now wo can execute these command:
 *	now apply fill cpp #ifdef types
 *	add support to c plus plus languane "class" key word
 *	add my debug tag #ifdef __DEBUG__
+*	add quick history record function
 
 Next step i will realize these commands:
 *	style
