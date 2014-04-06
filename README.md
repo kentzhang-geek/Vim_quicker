@@ -62,8 +62,8 @@ Now wo can execute these command:
 *	add support to c plus plus languane "class" key word
 *	add my debug tag #ifdef __DEBUG__
 *	add quick history record function
+*	add cscope support for symbol lookup
 
 Next step i will realize these commands:
 *	style
 *	logfile
-*	symbol lookup

@@ -3,16 +3,56 @@
 "	type Ctrl + J in insert mode 
 "	input your C comment	
 "	then print comment in current cursor
+
+" Auto command
 imap <M-i> <Esc>:call AutoCommandEntry()<CR>a<Right>
+imap <C-K> <Esc>:call AutoCommandEntry()<CR>a<Right>
+
+" Cscope command
+map <M-c> <Esc>:call MyCscope()<CR>
+imap <M-c> <Esc>:call MyCscope()<CR>
+
+" Comment command
 inoremap <expr> <M-j> MyComment()
+inoremap <expr> <C-J> MyComment()
+
+" Highlight command
 inoremap <expr> <M-l> MyHighLight()
 noremap <M-l> <Esc>:call MyHighLight()<CR>
-
-imap <C-K> <Esc>:call AutoCommandEntry()<CR>a<Right>
-inoremap <expr> <C-J> MyComment()
 inoremap <expr> <C-L> MyHighLight()
 noremap <C-L> <Esc>:call MyHighLight()<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Setting for cscope
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("cscope")
+  set csprg=/usr/bin/cscope
+  set csto=1
+  set cst
+  set nocsverb
+  " add any database in current directory
+  if filereadable("cscope.out")
+      cs add cscope.out
+  endif
+  " add any database in home directory
+  " if filereadable("~/cscope/cscope.out")
+  "    cs add "~/cscope/cscope.out"
+  " endif
+  set csverb
+endif
+
+" Cscope command entry
+func MyCscope()
+	let keyword=expand("<cword>")
+	let wordtype=confirm("What kind do you want?", "c&alling this function\ncalled &by this funcion\n&eGrep\n&find this file\n&definition\nfile &including this file\n&c-symbol\n&text String")
+	if wordtype==0
+		let wordtype=7
+	endif
+	let inputword=inputdialog("The keyword is:", keyword, keyword)
+	let word={1:'c', 2:'d', 3:'e', 4:'f', 5:'g', 6:'i', 7:'s', 8:'t'}
+	:execute "cs find " . word[wordtype] " " . inputword
+	return
+endfunc
 
 " quicker command entry
 func AutoCommandEntry()
