@@ -44,7 +44,7 @@ endif
 " Cscope command entry
 func MyCscope()
 	let keyword=expand("<cword>")
-	let wordtype=confirm("What kind do you want?", "c&alling this function\ncalled &by this funcion\n&eGrep\n&find this file\n&definition\nfile &including this file\n&c-symbol\n&text String")
+	let wordtype=confirm("What kind do you want?", "&calling this function\ncalle&d by this funcion\n&eGrep\n&find this file\n&g-definition\nfile &including this file\nc-&symbol\n&text String")
 	if wordtype==0
 		let wordtype=7
 	endif

@@ -65,5 +65,5 @@ filetype plugin indent on     " required!
 "
 " Bundle 'Valloric/YouCompleteMe'
 
-"vim-arudino
+" vim-arudino
 Bundle 'git://github.com/tclem/vim-arduino.git'
