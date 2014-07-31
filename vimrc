@@ -62,7 +62,20 @@ au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
 
 " My Bundles here:
+" YCM
 Bundle 'Valloric/YouCompleteMe'
+let g:ycm_global_ycm_extra_conf='~/.vim/YCM_extra_conf.py'
+
+" Syntastic
+let g:syntastic_c_checkers=['make']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_signs=1
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*gbar
 
 " vim-arudino
 Bundle 'git://github.com/tclem/vim-arduino.git'
