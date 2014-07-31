@@ -8,6 +8,23 @@ set autoindent
 set cindent
 colorscheme desert
 syntax on
+set shell=/bin/sh
+
+"vim字体大小
+set guifont=Monospace\ 16
+
+set nocompatible " be iMproved
+set backspace=2 " be iMproved
+filetype off " required!
+
+filetype plugin indent on     " required!
+
+" let Vundle manage Vundle
+" required! 
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+" Bundle 'gmarik/vundle'
+
 
 " 设置折叠方式为缩进折叠
 " set foldmethod=indent
@@ -20,20 +37,23 @@ set foldexpr=getline(v:lnum)[0]==\"\\t\"
 " 设置自动折叠
 " set foldclose=all
 
-"设置Leader键
+" 设置Leader键
 let mapleader = ","
 
-"进行Tlist的设置
-"TlistUpdate可以更新tags
-map <F3> :silent! Tlist<CR> "按下F3就可以呼出了
-let Tlist_Ctags_Cmd='ctags' "因为我们放在环境变量里，所以可以直接执行
-let Tlist_Use_Right_Window=1 "让窗口显示在右边，0的话就是显示在左边
-let Tlist_Show_One_File=0 "让taglist可以同时展示多个文件的函数列表，如果想只有1个，设置为1
-let Tlist_File_Fold_Auto_Close=1 "非当前文件，函数列表折叠隐藏
-let Tlist_Exit_OnlyWindow=1 "当taglist是最后一个分割窗口时，自动推出vim
-"是否一直处理tags.1:处理;0:不处理
-let Tlist_Process_File_Always=0 "不是一直实时更新tags，因为没有必要
-let Tlist_Inc_Winwidth=0
+" 标签导航，纬度和taglist不同
+Bundle 'majutsushi/tagbar'
+nmap <leader>tb :TagbarToggle<CR>  " \tb 打开tagbar窗口
+let g:tagbar_autofocus = 1
+
+Bundle 'vim-scripts/taglist.vim'
+" \tl                 打开Taglist/TxtBrowser窗口，在右侧栏显示
+nmap <leader>tl :Tlist<CR><c-l>
+" :Tlist              调用TagList
+let Tlist_Show_One_File        = 1             " 只显示当前文件的tags
+let Tlist_Exit_OnlyWindow      = 1             " 如果Taglist窗口是最后一个窗口则退出Vim
+let Tlist_Use_Right_Window     = 1             " 在右侧窗口中显示
+let Tlist_File_Fold_Auto_Close = 1             " 自动折叠
+"let Tlist_Sort_Type = "name"                   " items in tags sorted by name
 
 "arduino色彩高亮
 autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
@@ -41,29 +61,132 @@ autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
 au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
 
-"vim字体大小
-set guifont=Monospace\ 16
-
-set nocompatible               " be iMproved
-set backspace=2		" be iMproved
-filetype off                   " required!
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
-
-filetype plugin indent on     " required!
-
-" 自动补全映射：
-" inoremap <expr> <Space>	pumvisible()?"<C-Y>":"<Space>"
-
-
 " My Bundles here:
-"
-" Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 
 " vim-arudino
 Bundle 'git://github.com/tclem/vim-arduino.git'
+
+" 宏定义补全插件
+" 快速插入代码片段
+" 暂时不用
+" Bundle 'SirVer/ultisnips'
+" let g:UltiSnipsExpandTrigger = "<leader><tab>"
+" let g:UltiSnipsListSnippets = "<leader>ul"
+" let g:UltiSnipsJumpForwardTrigger = "<leader><tab>"
+" let g:UltiSnipsJumpBackwardTrigger= "<leader><tab>"
+" 
+" " 定义存放代码片段的文件夹 .vim/snippets下，使用自定义和默认的，将会的到全局，有冲突的会提示
+" let g:UltiSnipsSnippetDirectories=["snippets", "bundle/ultisnips/UltiSnips"]
+
+" \s 一键保存
+func! SaveFile()
+    exec "w"
+endfunc
+map  <leader>s :call SaveFile()<CR>
+imap <leader>s  <ESC>:call SaveFile()<CR>
+vmap <leader>s  <ESC>:call SaveFile()<CR>
+
+" 使用GUI界面时的设置
+if  has("gui_running")
+	set guioptions+=c        " 使用字符提示框
+	set guioptions-=m        " 隐藏菜单栏
+	"set guioptions-=T        " 隐藏工具栏
+	set guioptions-=L        " 隐藏左侧滚动条
+	"set guioptions-=r        " 隐藏右侧滚动条
+	set guioptions-=b        " 隐藏底部滚动条
+	"set showtabline=0       " 隐藏Tab栏
+	set cursorline           " 突出显示当前行
+endif
+
+"目录文件导航
+Bundle 'scrooloose/nerdtree'
+" \nt                 打开nerdree窗口，在左侧栏显示
+nmap <leader>nt :NERDTree<CR>
+let NERDTreeHighlightCursorline=1
+let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+let g:netrw_home='~/bak'
+"close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
+
+Bundle 'fholgado/minibufexpl.vim'
+" 多文件切换，也可使用鼠标双击相应文件名进行切换
+let g:miniBufExplMapWindowNavVim    = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs  = 1
+let g:miniBufExplModSelTarget       = 1
+"解决FileExplorer窗口变小问题
+let g:miniBufExplForceSyntaxEnable = 1
+let g:miniBufExplorerMoreThanOne=2
+let g:miniBufExplCycleArround=1
+" buffer 切换快捷键，默认方向键左右可以切换buffer
+map <C-Tab> :MBEbn<cr>
+map <C-S-Tab> :MBEbp<cr>
+
+" 美化状态栏
+Bundle 'Lokaltog/vim-powerline'
+let g:Powerline_symbols = 'unicode'
+
+"for file search ctrlp, 文件搜索
+Bundle 'kien/ctrlp.vim'
+" 打开ctrlp搜索
+let g:ctrlp_map = '<leader>ff'
+let g:ctrlp_cmd = 'CtrlP'
+" 相当于mru功能，show recently opened files
+map <leader>fp :CtrlPMRU<CR>
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
+    \ }
+"\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
+
+Bundle 'kien/rainbow_parentheses.vim'
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 40
+let g:rbpt_loadcmd_toggle = 0
+
+"自动补全单引号，双引号等
+Bundle 'Raimondi/delimitMate'
+" for python docstring ",优化输入
+au FileType python let b:delimitMate_nesting_quotes = ['"']
+
+" 使用pyflakes,速度比pylint快
+Bundle 'scrooloose/syntastic'
+let g:syntastic_error_symbol = '✗'	"set error or warning signs
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_highlighting = 0
+"let g:syntastic_python_checker="flake8,pyflakes,pep8,pylint"
+let g:syntastic_python_checkers=['pyflakes']
+"highlight SyntasticErrorSign guifg=white guibg=black
+
+let g:syntastic_cpp_include_dirs = ['/usr/include/']
+let g:syntastic_cpp_remove_include_errors = 1
+let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libstdc++'
+let g:syntastic_enable_balloons = 1	"whether to show balloons
