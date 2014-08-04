@@ -5,7 +5,12 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+# 候选主题如下
+
+ZSH_THEME="fino-time" #有问题，已修复
+# ZSH_THEME="duellj"
+# ZSH_THEME="dst"
+# ZSH_THEME="clean"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -170,6 +175,9 @@ alias -g ls='ls -F --color=auto'
 alias -g ll='ls -l'
 alias -g grep='grep --color=auto'
 alias -g ee='emacsclient -t'
+alias dff='sh ~/Beyond.Compare.v3.2.3.Linux/bcompare.sh'
+alias bc3='dff'
+alias goagent='cd ~/Desktop/TOOLS/goagent && python proxy.py'
 
 #[Esc][h] man 当前命令时，显示简短说明 
 alias run-help >&/dev/null && unalias run-help
@@ -194,6 +202,9 @@ fi
 #补全 ping
 zstyle ':completion:*:ping:*' hosts 192.168.0.1{38,} www.g.cn \
        192.168.{1,0}.1{{7..9},}
+
+# Makefile
+
 
 #补全 ssh scp sftp 等
 my_accounts=(
@@ -222,6 +233,10 @@ hash -d Tmp="/home/kent/Desktop/tmp"
 hash -d Tool="/home/kent/Desktop/TOOLS"
 hash -d Lab="/home/kent/Desktop/Mr.Lab"
 #}}}
+
+# 参数设置
+ulimit -c unlimited
+# 参数设置
 
 ## END OF FILE #################################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4 
