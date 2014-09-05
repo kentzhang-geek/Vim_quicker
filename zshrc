@@ -7,10 +7,11 @@ export ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 # 候选主题如下
 
-ZSH_THEME="fino-time" #有问题，已修复
+# ZSH_THEME="fino-time" #显示时间但是太繁复
 # ZSH_THEME="duellj"
 # ZSH_THEME="dst"
-# ZSH_THEME="clean"
+ZSH_THEME="clean" #这个很干净，好评
+# ZSH_THEME="crunch" #这个也不错
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -178,6 +179,10 @@ alias -g ee='emacsclient -t'
 alias dff='sh ~/Beyond.Compare.v3.2.3.Linux/bcompare.sh'
 alias bc3='dff'
 alias goagent='cd ~/Desktop/TOOLS/goagent && python proxy.py'
+alias vrdp="noglob vvrdp"
+vvrdp(){
+    xfreerdp /v:$*
+}
 
 #[Esc][h] man 当前命令时，显示简短说明 
 alias run-help >&/dev/null && unalias run-help
