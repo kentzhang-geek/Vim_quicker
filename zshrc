@@ -184,6 +184,14 @@ vvrdp(){
     xfreerdp /v:$*
 }
 
+# Sublime Text 2
+alias sublime=/home/kent/Desktop/TOOLS/SublimeText2/sublime_text
+
+# Add pandoc's templete
+alias pandoc-zh-pdf="pandoc --template=$HOME/Desktop/TOOLS/pandoc/template.tex --latex-engine=xelatex"
+alias pandoc-paper="pandoc --template=$HOME/Desktop/TOOLS/pandoc/paper.tex --latex-engine=xelatex"
+alias pandoc-slides="pandoc -s --mathml -i -t dzslides"
+
 #[Esc][h] man 当前命令时，显示简短说明 
 alias run-help >&/dev/null && unalias run-help
 autoload run-help
