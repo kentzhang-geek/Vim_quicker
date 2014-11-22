@@ -58,6 +58,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -178,7 +179,9 @@ alias -g grep='grep --color=auto'
 alias -g ee='emacsclient -t'
 alias dff='sh ~/Beyond.Compare.v3.2.3.Linux/bcompare.sh'
 alias bc3='dff'
-alias goagent='cd ~/Desktop/TOOLS/goagent && python proxy.py'
+# alias goagent='cd ~/Desktop/TOOLS/goagent && python proxy.py'
+# alias goagent='python ~/Desktop/TOOLS/goagent/goagent-gtk.py'
+alias goagent='python ~/Desktop/TOOLS/goagent/proxy.py'
 alias vrdp="noglob vvrdp"
 vvrdp(){
     xfreerdp /v:$*
@@ -191,6 +194,27 @@ alias sublime=/home/kent/Desktop/TOOLS/SublimeText2/sublime_text
 alias pandoc-zh-pdf="pandoc --template=$HOME/Desktop/TOOLS/pandoc/template.tex --latex-engine=xelatex"
 alias pandoc-paper="pandoc --template=$HOME/Desktop/TOOLS/pandoc/paper.tex --latex-engine=xelatex"
 alias pandoc-slides="pandoc -s --mathml -i -t dzslides"
+
+# Add leanote
+alias leanote="$HOME/leanote/bin/run.sh"
+
+# add understand
+alias understand="$HOME/scitools/bin/linux64/understand"
+
+# Add baiduyun
+# alias bdy="wine $HOME/.wine/drive_c/users/kent/Application\ Data/baidu/BaiduYunGuanjia/BaiduYunGuanjia.exe 1>/dev/null 2>/dev/null"
+
+# add VBA
+alias vba="wine $HOME/Desktop/GAME/WIN/GBA/VBA/VisualBoyAdvance\(CN\).exe"
+
+# Qt
+alias QtStart='export PATH=$PATH:/home/kent/Qt5.1.0/5.1.0/gcc_64/bin:/home/kent/Qt5.1.0/Tools/QtCreator/bin'
+
+# gdb tui
+alias gdbtui='gdb --tui'
+
+# apt-get with goagent proxy
+alias aptg="sudo apt-get -o Acquire::http::proxy=\"http://127.0.0.1:8087/\""
 
 #[Esc][h] man 当前命令时，显示简短说明 
 alias run-help >&/dev/null && unalias run-help
