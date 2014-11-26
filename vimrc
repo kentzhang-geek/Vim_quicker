@@ -63,8 +63,35 @@ au BufRead,BufNewFile *.ino set filetype=arduino
 
 " My Bundles here:
 " YCM
-Bundle 'Valloric/YouCompleteMe'
-let g:ycm_global_ycm_extra_conf='~/.vim/YCM_extra_conf.py'
+" Bundle 'Valloric/YouCompleteMe'
+" let g:ycm_global_ycm_extra_conf='~/.vim/YCM_extra_conf.py'
+" " 自动补全配置
+" set completeopt=longest,menu	"让Vim的补全菜单行为与一般IDE一致
+" let g:ycm_min_num_of_chars_for_completion=2	" 从第2个键入字符就开始罗列匹配项
+" let g:ycm_seed_identifiers_with_syntax=1	" 语法关键字补全
+" let g:ycm_complete_in_comments = 1 "在字符串输入中也能补全
+" let g:ycm_complete_in_strings = 1 "注释和字符串中的文字也会被收入补全
+" nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> 
+" " 跳转到定义处
+" let g:ycm_collect_identifiers_from_tag_files = 1 " add tags file
+" let g:ycm_seed_identifiers_with_syntax = 1 " add syntax
+" let g:ycm_add_preview_to_completeopt = 1 " add preview
+" let g:ycm_autoclose_preview_window_after_completion = 1 " auto close compl
+
+"" autocompl 暂时不用YCM
+Bundle 'vim-scripts/AutoComplPop'
+
+" OmniCppComplete
+Bundle 'vim-scripts/OmniCppComplete'
+set completeopt=menu,menuone  
+let OmniCpp_MayCompleteDot=1	" 打开  . 操作符
+let OmniCpp_MayCompleteArrow=1	" 打开 -> 操作符
+let OmniCpp_MayCompleteScope=1	" 打开 :: 操作符
+let OmniCpp_NamespaceSearch=1	" 打开命名空间
+let OmniCpp_GlobalScopeSearch=1  
+let OmniCpp_DefaultNamespace=["std"]  
+let OmniCpp_ShowPrototypeInAbbr=1	" 打开显示函数原型
+let OmniCpp_SelectFirstItem = 2		" 自动弹出时自动跳至第一个
 
 " Syntastic
 let g:syntastic_c_checkers=['make']

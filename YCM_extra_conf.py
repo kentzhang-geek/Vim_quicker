@@ -61,14 +61,16 @@ flags = [
 'c++',
 '-isystem',
 '../BoostParts',
-'-isystem',
 # This path will only work on OS X, but extra paths that don't exist are not
 # harmful
+'-isystem',
 '/System/Library/Frameworks/Python.framework/Headers',
 '-isystem',
 '../llvm/include',
 '-isystem',
 '../llvm/tools/clang/include',
+'-isystem',
+'/usr/include/llvm/',
 '-I',
 '.',
 '-I',
@@ -86,9 +88,17 @@ flags = [
 '-isystem',
 '/usr/local/include',
 '-isystem',
-'/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/c++/v1',
+'/usr/include/c++/4.7.2',
 '-isystem',
-'/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include',
+'/usr/include/x86_64-linux-gnu',
+'-isystem',
+'/usr/local/bin/../lib/gcc/x86_64-unknown-linux-gnu/4.9.2/../../../../include/c++/4.9.2',
+'-isystem',
+'/usr/local/bin/../lib/gcc/x86_64-unknown-linux-gnu/4.9.2/../../../../include/c++/4.9.2/x86_64-unknown-linux-gnu',
+'-system',
+'/usr/local/bin/../lib/gcc/x86_64-unknown-linux-gnu/4.9.2/../../../../include/c++/4.9.2/backward',
+'-isystem',
+'/usr/local/bin/../lib/clang/3.3/include',
 ]
 
 
