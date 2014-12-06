@@ -174,10 +174,12 @@ alias -g cp='cp -i'
 alias -g mv='mv -i'
 alias -g rm='rm -i'
 alias -g ls='ls -F --color=auto'
-alias -g ll='ls -l'
+alias -g ll='ls -lh'
 alias -g grep='grep --color=auto'
 alias -g ee='emacsclient -t'
 alias dff='sh ~/Beyond.Compare.v3.2.3.Linux/bcompare.sh'
+alias tclock='tty-clock -c -C 4 -t'
+alias fclock=' watch -n1 "date '+%D%n%T'|figlet -k"'
 alias bc3='dff'
 # alias goagent='cd ~/Desktop/TOOLS/goagent && python proxy.py'
 # alias goagent='python ~/Desktop/TOOLS/goagent/goagent-gtk.py'
@@ -206,6 +208,9 @@ alias understand="$HOME/scitools/bin/linux64/understand"
 
 # add VBA
 alias vba="wine $HOME/Desktop/GAME/WIN/GBA/VBA/VisualBoyAdvance\(CN\).exe"
+
+# add VBA
+alias in3="wine $HOME/win_program/SourceInsight/Insight3.exe"
 
 # Qt
 alias QtStart='export PATH=$PATH:/home/kent/Qt5.1.0/5.1.0/gcc_64/bin:/home/kent/Qt5.1.0/Tools/QtCreator/bin'
@@ -269,6 +274,7 @@ function timeconv { date -d @$1 +"%Y-%m-%d %T" }
 hash -d Tmp="/home/kent/Desktop/tmp"
 hash -d Tool="/home/kent/Desktop/TOOLS"
 hash -d Lab="/home/kent/Desktop/Mr.Lab"
+hash -d Project="/home/kent/Desktop/ProjectNow"
 #}}}
 
 # 参数设置
