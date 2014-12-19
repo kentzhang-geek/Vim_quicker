@@ -107,6 +107,17 @@ set statusline+=%*gbar
 " vim-arudino
 Bundle 'git://github.com/tclem/vim-arduino.git'
 
+" vim-tabular
+Bundle 'git://github.com/godlygeek/tabular.git'
+nmap <Leader>td :Tabularize /=<CR>
+vmap <Leader>td :Tabularize /=<CR>
+nmap <Leader>tm :Tabularize /:\zs<CR>
+vmap <Leader>tm :Tabularize /:\zs<CR>
+nmap <Leader>tx :Tabularize /\/\/<CR>
+vmap <Leader>tx :Tabularize /\/\/<CR>
+nmap <Leader>tt :Tabularize /
+vmap <Leader>tt :Tabularize /
+
 " 宏定义补全插件
 " 快速插入代码片段
 " 暂时不用
